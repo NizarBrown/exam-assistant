@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>考试助手 - RAG</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Microsoft YaHei', sans-serif; background: #1a1a2e; color: #eee; height: 100vh; display: flex; flex-direction: column; }
@@ -106,7 +109,14 @@ async function send() {
       chat.insertAdjacentHTML('beforeend', '<div class="msg assistant">'+esc(data.error)+'</div>');
     } else {
       let srcs = data.sources?.length ? '<div class="sources">参考: '+data.sources.join(', ')+'</div>' : '';
-      chat.insertAdjacentHTML('beforeend', '<div class="msg assistant">'+esc(data.answer)+srcs+'</div>');
+      let div = document.createElement('div');
+      div.className = 'msg assistant';
+      div.innerHTML = esc(data.answer) + srcs;
+      chat.appendChild(div);
+      renderMathInElement(div, {delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]});
       history.push({role: 'user', content: q});
       history.push({role: 'assistant', content: data.answer});
     }
