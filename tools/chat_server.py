@@ -14,7 +14,7 @@ from pathlib import Path
 LLAMA_API = "http://127.0.0.1:8080/v1/chat/completions"
 ROOT = Path(__file__).resolve().parent.parent
 SUBJECTS_DIR = ROOT / "subjects"
-MAX_CONTEXT = 2048   # 最多塞给模型的教材内容（中文字符）
+MAX_CONTEXT = 1500   # 最多塞给模型的教材内容（中文字符），避免上下文溢出
 
 
 class RAG:
@@ -141,7 +141,7 @@ class ChatHandler(http.server.BaseHTTPRequestHandler):
             + context
         )
         messages = [{"role": "system", "content": system_msg}]
-        for h in history[-10:]:  # 最近 10 轮
+        for h in history[-4:]:  # 最近 4 轮，避免溢出
             messages.append(h)
         messages.append({"role": "user", "content": question})
 

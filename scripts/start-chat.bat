@@ -20,7 +20,7 @@ if "%choice%"=="2" (
 
 echo.
 echo 正在启动 %NAME% ...
-start /b "" llama-server.exe -m %MODEL% --host 127.0.0.1 --port 8080 -c 4096 -ngl 0
+start /b "" llama-server.exe -m %MODEL% --host 127.0.0.1 --port 8080 -c 8192 -ngl 0
 echo 等待模型加载...
 
 :wait_llama
