@@ -1,0 +1,10 @@
+# 模型文件太大，需自行下载
+# 下载链接见 README.md
+models/*.gguf
+
+# 科目源材料（用户自行放入）
+subjects/*/materials/*
+
+# 系统文件
+Thumbs.db
+Desktop.ini
